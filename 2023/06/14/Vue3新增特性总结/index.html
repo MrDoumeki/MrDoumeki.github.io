@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Vue3新增特性总结 | Doumeki's Blog</title><meta name="author" content="Doumeki"><meta name="copyright" content="Doumeki"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CompositionAPIsetup单文件组件&lt;script setup&gt; &lt;script setup&gt;是在单文件组件 (SFC) 中使用组合式 API 的编译时语法糖。当同时使用 SFC 与组合式 API 时该语法是默认推荐。相比于普通的script语法，它具有更多优势：  更少的样板内容，更简洁的代码。 能够使用纯 TypeScript 声明 props 和自定义事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue3新增特性总结">
+<meta property="og:url" content="https://mrdoumeki.gitee.io/2023/06/14/Vue3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Doumeki&#39;s Blog">
+<meta property="og:description" content="CompositionAPIsetup单文件组件&lt;script setup&gt; &lt;script setup&gt;是在单文件组件 (SFC) 中使用组合式 API 的编译时语法糖。当同时使用 SFC 与组合式 API 时该语法是默认推荐。相比于普通的script语法，它具有更多优势：  更少的样板内容，更简洁的代码。 能够使用纯 TypeScript 声明 props 和自定义事件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://avatars.mds.yandex.net/i?id=d07140240460b7e9f8ae2f5170ac8d809592071d-7458047-images-thumbs&n=13">
+<meta property="article:published_time" content="2023-06-14T01:53:25.000Z">
+<meta property="article:modified_time" content="2023-06-14T02:51:42.243Z">
+<meta property="article:author" content="Doumeki">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://avatars.mds.yandex.net/i?id=d07140240460b7e9f8ae2f5170ac8d809592071d-7458047-images-thumbs&n=13"><link rel="shortcut icon" href="/img/cat.png"><link rel="canonical" href="https://mrdoumeki.gitee.io/2023/06/14/Vue3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Vue3新增特性总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-06-14 10:51:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = 'hidden';
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+
+preloader.initLoading()
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://avatars.mds.yandex.net/i?id=d07140240460b7e9f8ae2f5170ac8d809592071d-7458047-images-thumbs&amp;n=13')"><nav id="nav"><span id="blog-info"><a href="/" title="Doumeki's Blog"><span class="site-name">Doumeki's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Vue3新增特性总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-14T01:53:25.000Z" title="发表于 2023-06-14 09:53:25">2023-06-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-14T02:51:42.243Z" title="更新于 2023-06-14 10:51:42">2023-06-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/Vue3/">Vue3</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Vue3新增特性总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h4 id="CompositionAPI"><a href="#CompositionAPI" class="headerlink" title="CompositionAPI"></a>CompositionAPI</h4><h5 id="setup"><a href="#setup" class="headerlink" title="setup"></a>setup</h5><p>单文件组件<code>&lt;script setup&gt;</code></p>
+<p><code>&lt;script setup&gt;</code>是在单文件组件 (SFC) 中使用组合式 API 的编译时语法糖。当同时使用 SFC 与组合式 API 时该语法是默认推荐。相比于普通的script语法，它具有更多优势：</p>
+<ul>
+<li>更少的样板内容，更简洁的代码。</li>
+<li>能够使用纯 TypeScript 声明 props 和自定义事件。</li>
+<li>更好的运行时性能 (其模板会被编译成同一作用域内的渲染函数，避免了渲染上下文代理对象)。</li>
+<li>更好的 IDE 类型推导性能 (减少了语言服务器从代码中抽取类型的工作)。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 声明 props 和 emits 选项时获得完整的类型推导支持，可以使用 defineProps 和 defineEmits API</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> props = <span class="title function_">defineProps</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">foo</span>: <span class="title class_">String</span></span></span><br><span class="line"><span class="language-javascript">  &#125;)</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> emit = <span class="title function_">defineEmits</span>([<span class="string">&#x27;change&#x27;</span>, <span class="string">&#x27;delete&#x27;</span>])</span></span><br><span class="line"><span class="language-javascript">  </span></span><br><span class="line"><span class="language-javascript">  <span class="comment">/*使用 &lt;script setup&gt; 的组件是默认关闭的——即通过模板引用或者 $parent 链获取到的组件的公开实例，不会暴   露任何在 &lt;script setup&gt; 中声明的绑定。可以通过 defineExpose 编译器宏来显式指定在 &lt;script setup&gt;     组件中要暴露出去的属性*/</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> a = <span class="number">1</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> b = <span class="title function_">ref</span>(<span class="number">2</span>)</span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">defineExpose</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">    a,</span></span><br><span class="line"><span class="language-javascript">    b</span></span><br><span class="line"><span class="language-javascript">  &#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> &gt;</span>&#123;&#123; a &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>组合式API: setup()</p>
+<p><code>setup()</code> 钩子是在组件中使用组合式 API 的入口，通常在以下情况下使用：</p>
+<ul>
+<li>需要在非单文件组件中使用组合式 API 时。</li>
+<li>需要在基于选项式 API 的组件中集成基于组合式 API 的代码时</li>
+</ul>
+<p>对于结合单文件组件使用的组合式 API，推荐通过 <code>&lt;script setup&gt;</code>以获得更加简洁及符合人体工程学的语法。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">//h为渲染函数</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; h,ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="attr">props</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">title</span>: <span class="title class_">String</span></span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">setup</span>(<span class="params">props,context</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 访问props里的值</span></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(props.<span class="property">title</span>)</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 解构获取props里的值会失去响应式特性，可以使用toRefs或toRef()转换</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> &#123; title &#125; = <span class="title function_">toRefs</span>(props)</span></span><br><span class="line"><span class="language-javascript">      </span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 返回值会暴露给模板和其他的选项式 API 钩子</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      count</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">      </span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//结合渲染函数使用</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> <span class="title function_">increment</span> = (<span class="params"></span>) =&gt; ++count.<span class="property">value</span></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">expose</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">      increment</span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> <span class="function">() =&gt;</span> <span class="title function_">h</span>(<span class="string">&#x27;div&#x27;</span>, count.<span class="property">value</span>)</span></span><br><span class="line"><span class="language-javascript">  &#125;,</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">count</span>) <span class="comment">// 0</span></span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;count++&quot;</span>&gt;</span>&#123;&#123; count &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="ref、reactive和toRefs"><a href="#ref、reactive和toRefs" class="headerlink" title="ref、reactive和toRefs"></a>ref、reactive和toRefs</h5><h5 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h5><h5 id="watch和watchEffect"><a href="#watch和watchEffect" class="headerlink" title="watch和watchEffect"></a>watch和watchEffect</h5><h4 id="自定义Hook"><a href="#自定义Hook" class="headerlink" title="自定义Hook"></a>自定义Hook</h4><p>已做过介绍，详情请看组合式函数（自定义hook）。</p>
+<h4 id="Vue2-x与Vue3-x响应式对比"><a href="#Vue2-x与Vue3-x响应式对比" class="headerlink" title="Vue2.x与Vue3.x响应式对比"></a>Vue2.x与Vue3.x响应式对比</h4><h4 id="Teleport"><a href="#Teleport" class="headerlink" title="Teleport"></a>Teleport</h4><h4 id="Suspense"><a href="#Suspense" class="headerlink" title="Suspense"></a>Suspense</h4><h4 id="Fragment"><a href="#Fragment" class="headerlink" title="Fragment"></a>Fragment</h4></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://mrdoumeki.gitee.io">Doumeki</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://mrdoumeki.gitee.io/2023/06/14/Vue3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/">https://mrdoumeki.gitee.io/2023/06/14/Vue3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://mrdoumeki.gitee.io" target="_blank">Doumeki's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/Vue3/">Vue3</a></div><div class="post_share"><div class="social-share" data-image="https://avatars.mds.yandex.net/i?id=d07140240460b7e9f8ae2f5170ac8d809592071d-7458047-images-thumbs&amp;n=13" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/06/13/%E7%BB%84%E5%90%88%E5%BC%8F%E5%87%BD%E6%95%B0%EF%BC%88%E8%87%AA%E5%AE%9A%E4%B9%89hook%EF%BC%89/" title="组合式函数（自定义hook）"><img class="cover" src="https://avatars.mds.yandex.net/i?id=bdb3956aa721fb1c84bcb5a3cb0925e9f967ade8-9271382-images-thumbs&amp;n=13" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">组合式函数（自定义hook）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/06/12/%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD/" title="作用域插槽"><img class="cover" src="https://avatars.mds.yandex.net/i?id=54ac5140538fbc0a6531af3fc862d6f57828d543-8370469-images-thumbs&n=13" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-12</div><div class="title">作用域插槽</div></div></a></div><div><a href="/2023/06/13/%E7%BB%84%E5%90%88%E5%BC%8F%E5%87%BD%E6%95%B0%EF%BC%88%E8%87%AA%E5%AE%9A%E4%B9%89hook%EF%BC%89/" title="组合式函数（自定义hook）"><img class="cover" src="https://avatars.mds.yandex.net/i?id=bdb3956aa721fb1c84bcb5a3cb0925e9f967ade8-9271382-images-thumbs&n=13" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-13</div><div class="title">组合式函数（自定义hook）</div></div></a></div><div><a href="/2023/05/25/useEffect%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%AE%9A%E6%97%B6%E5%99%A8%E4%BA%A7%E7%94%9F%E7%9A%84%E9%97%AD%E5%8C%85%E9%97%AE%E9%A2%98/" title="useEffect中使用定时器产生的闭包问题"><img class="cover" src="https://avatars.mds.yandex.net/i?id=139966dfc92237c7fce24b3fbdea16b9f287e602-5879061-images-thumbs&n=13" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-25</div><div class="title">useEffect中使用定时器产生的闭包问题</div></div></a></div><div><a href="/2023/06/05/useRef%E7%9A%84%E4%BD%BF%E7%94%A8/" title="useRef的使用"><img class="cover" src="https://avatars.mds.yandex.net/i?id=93b6ea70da7a948992fcd58d4f2aa0eb19463d4a-8309375-images-thumbs&n=13" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-05</div><div class="title">useRef的使用</div></div></a></div><div><a href="/2023/06/05/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B8%B2%E6%9F%93%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/" title="客户端渲染和服务端渲染"><img class="cover" src="https://avatars.mds.yandex.net/i?id=1a3e116ae1e11bed6dc3afd586048cc8fe692106-6947221-images-thumbs&n=13" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-05</div><div class="title">客户端渲染和服务端渲染</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Doumeki</div><div class="author-info__description">Shall we talk？</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/MrDoumeki"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">一个平平无奇的个人博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#CompositionAPI"><span class="toc-number">1.</span> <span class="toc-text">CompositionAPI</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#setup"><span class="toc-number">1.1.</span> <span class="toc-text">setup</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ref%E3%80%81reactive%E5%92%8CtoRefs"><span class="toc-number">1.2.</span> <span class="toc-text">ref、reactive和toRefs</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90"><span class="toc-number">1.3.</span> <span class="toc-text">生命周期钩子</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#watch%E5%92%8CwatchEffect"><span class="toc-number">1.4.</span> <span class="toc-text">watch和watchEffect</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89Hook"><span class="toc-number">2.</span> <span class="toc-text">自定义Hook</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue2-x%E4%B8%8EVue3-x%E5%93%8D%E5%BA%94%E5%BC%8F%E5%AF%B9%E6%AF%94"><span class="toc-number">3.</span> <span class="toc-text">Vue2.x与Vue3.x响应式对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Teleport"><span class="toc-number">4.</span> <span class="toc-text">Teleport</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Suspense"><span class="toc-number">5.</span> <span class="toc-text">Suspense</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Fragment"><span class="toc-number">6.</span> <span class="toc-text">Fragment</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/06/14/Vue3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/" title="Vue3新增特性总结"><img src="https://avatars.mds.yandex.net/i?id=d07140240460b7e9f8ae2f5170ac8d809592071d-7458047-images-thumbs&amp;n=13" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vue3新增特性总结"/></a><div class="content"><a class="title" href="/2023/06/14/Vue3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/" title="Vue3新增特性总结">Vue3新增特性总结</a><time datetime="2023-06-14T01:53:25.000Z" title="发表于 2023-06-14 09:53:25">2023-06-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/13/%E7%BB%84%E5%90%88%E5%BC%8F%E5%87%BD%E6%95%B0%EF%BC%88%E8%87%AA%E5%AE%9A%E4%B9%89hook%EF%BC%89/" title="组合式函数（自定义hook）"><img src="https://avatars.mds.yandex.net/i?id=bdb3956aa721fb1c84bcb5a3cb0925e9f967ade8-9271382-images-thumbs&amp;n=13" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="组合式函数（自定义hook）"/></a><div class="content"><a class="title" href="/2023/06/13/%E7%BB%84%E5%90%88%E5%BC%8F%E5%87%BD%E6%95%B0%EF%BC%88%E8%87%AA%E5%AE%9A%E4%B9%89hook%EF%BC%89/" title="组合式函数（自定义hook）">组合式函数（自定义hook）</a><time datetime="2023-06-13T03:22:37.000Z" title="发表于 2023-06-13 11:22:37">2023-06-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/12/%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD/" title="作用域插槽"><img src="https://avatars.mds.yandex.net/i?id=54ac5140538fbc0a6531af3fc862d6f57828d543-8370469-images-thumbs&amp;n=13" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="作用域插槽"/></a><div class="content"><a class="title" href="/2023/06/12/%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD/" title="作用域插槽">作用域插槽</a><time datetime="2023-06-12T03:10:38.000Z" title="发表于 2023-06-12 11:10:38">2023-06-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/05/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B8%B2%E6%9F%93%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/" title="客户端渲染和服务端渲染"><img src="https://avatars.mds.yandex.net/i?id=1a3e116ae1e11bed6dc3afd586048cc8fe692106-6947221-images-thumbs&amp;n=13" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="客户端渲染和服务端渲染"/></a><div class="content"><a class="title" href="/2023/06/05/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B8%B2%E6%9F%93%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/" title="客户端渲染和服务端渲染">客户端渲染和服务端渲染</a><time datetime="2023-06-05T06:15:56.000Z" title="发表于 2023-06-05 14:15:56">2023-06-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/05/useRef%E7%9A%84%E4%BD%BF%E7%94%A8/" title="useRef的使用"><img src="https://avatars.mds.yandex.net/i?id=93b6ea70da7a948992fcd58d4f2aa0eb19463d4a-8309375-images-thumbs&amp;n=13" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="useRef的使用"/></a><div class="content"><a class="title" href="/2023/06/05/useRef%E7%9A%84%E4%BD%BF%E7%94%A8/" title="useRef的使用">useRef的使用</a><time datetime="2023-06-05T03:28:43.000Z" title="发表于 2023-06-05 11:28:43">2023-06-05</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://avatars.mds.yandex.net/i?id=d07140240460b7e9f8ae2f5170ac8d809592071d-7458047-images-thumbs&amp;n=13')"><div id="footer-wrap"><div class="copyright">&copy;2023 By Doumeki</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
